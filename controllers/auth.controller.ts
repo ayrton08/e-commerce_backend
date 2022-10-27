@@ -1,40 +1,28 @@
 import { User } from "models/User";
 import { Auth } from "models/Auth";
-import gen from "random-seed";
-import { addMinutes } from "date-fns";
-
-const seed = "my secret";
-const random = gen.create(seed);
+import { setNewCode } from "helpers/setNewCode";
 
 export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);
-  const code = random.intBetween(10000, 99999);
-  const now = new Date();
-  const twentyMinutesFromNow = addMinutes(now, 20);
-  auth.data.code = code;
-  auth.data.expires = twentyMinutesFromNow;
-  await auth.push();
-  console.log("enviamos al " + email + "el codigo " + code);
+  const code = await setNewCode(auth);
   // en esta linea usar sendGrid para enviar el email
+  console.log("enviamos al " + email + "el codigo " + code);
   return true;
 }
 
 export async function findOrCreateAuth(email: string): Promise<Auth> {
-  const cleanEmail = email.trim().toLowerCase();
-  const auth = await Auth.findByEmail(cleanEmail);
+  const auth = await Auth.findByEmail(email);
 
   if (auth) {
     return auth;
-  } else {
-    const newUser = await User.createNewUser({
-      email: cleanEmail,
-    });
-    console.log(newUser);
-    const newAuth = await Auth.createNewAuth({
-      email: cleanEmail,
-      userId: newUser.id,
-      code: "",
-      expires: new Date(),
-    });
   }
+  const newUser = await User.createNewUser({
+    email: email,
+  });
+  await Auth.createNewAuth({
+    email: email,
+    userId: newUser.id,
+    code: "",
+    expires: new Date(),
+  });
 }
