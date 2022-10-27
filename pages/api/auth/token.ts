@@ -20,7 +20,7 @@ export default methods({
     const expires = auth.isCodeExpired();
 
     if (expires) {
-      res.status(401).send({ message: "token expirado" });
+      res.status(401).send({ message: "expired code" });
     }
     const token = generate({ userId: auth.data.userId });
     await Auth.deleteUsedCode(code);

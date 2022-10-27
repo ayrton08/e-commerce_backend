@@ -11,6 +11,9 @@ export class User {
     this.id = id;
     this.ref = collection.doc(id);
   }
+  async push() {
+    this.ref.update(this.data);
+  }
 
   async pull() {
     const snap = await this.ref.get();
