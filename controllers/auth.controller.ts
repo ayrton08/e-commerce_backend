@@ -10,7 +10,7 @@ export async function sendCode(email: string) {
   return true;
 }
 
-export async function findOrCreateAuth(email: string): Promise<Auth> {
+export async function findOrCreateAuth(email: string): Promise<Auth | void> {
   const auth = await Auth.findByEmail(email);
 
   if (auth) {
@@ -19,10 +19,11 @@ export async function findOrCreateAuth(email: string): Promise<Auth> {
   const newUser = await User.createNewUser({
     email: email,
   });
-  await Auth.createNewAuth({
+  const newAuth = await Auth.createNewAuth({
     email: email,
     userId: newUser.id,
     code: "",
     expires: new Date(),
   });
+  return newAuth;
 }
