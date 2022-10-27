@@ -44,9 +44,10 @@ export class Auth {
   }
 
   static async createNewAuth(data) {
-    const newUserSnap = await collection.add(data);
-    const newUser = new Auth(newUserSnap.id);
-    newUser.data = data;
+    const newAuthSnap = await collection.add(data);
+    const newAuth = new Auth(newAuthSnap.id);
+    newAuth.data = data;
+    return newAuth;
   }
 
   static cleanEmail(email: string) {

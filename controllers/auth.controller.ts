@@ -10,7 +10,7 @@ export async function sendCode(email: string) {
   return true;
 }
 
-export async function findOrCreateAuth(email: string): Promise<Auth | void> {
+export async function findOrCreateAuth(email: string): Promise<Auth> {
   const auth = await Auth.findByEmail(email);
 
   if (auth) {
