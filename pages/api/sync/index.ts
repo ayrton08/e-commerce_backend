@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getOffsetAndLimit } from "../../../helpers/requests";
-import { airtableBase } from "../../../lib/airtable";
-import { products } from "../../../lib/algolia";
+import { getOffsetAndLimit } from "helpers/requests";
+import { airtableBase } from "lib/airtable";
+import { products } from "lib/algolia";
 
 export default function (req: NextApiRequest, res: NextApiResponse) {
   const { limit } = getOffsetAndLimit(req, 100, 1000);
 
-  airtableBase("Pets")
+  airtableBase("Products")
     .select({
       pageSize: limit,
     })
