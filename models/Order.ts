@@ -21,6 +21,12 @@ export class Order {
     this.data = snap.data();
   }
 
+  async updateOrder(reference, linkToPay) {
+    this.data.aditionalInfo.external_reference = reference;
+    this.data.aditionalInfo.linkToPay = linkToPay;
+    await this.push();
+  }
+
   static async createNewOrder(newOrderData = {}) {
     const newOrderSnap = await collection.add(newOrderData);
     const newOrder = new Order(newOrderSnap.id);
@@ -28,13 +34,26 @@ export class Order {
     return newOrder;
   }
 
-  static async getOrdersByUserId(userId?) {
+  static async getOrdersByUserId(userId: string) {
     const results = await collection.get();
     const orders = results.docs.map((data) => {
       return data.data();
     });
 
     const myOrders = orders.filter((order) => order.userId === userId);
+
+    return myOrders;
+  }
+
+  static async getOrderById(orderId: string) {
+    const results = await collection.get();
+    const orders = results.docs.map((data) => {
+      return data.data();
+    });
+
+    const myOrders = orders.filter(
+      (order) => order.aditionalInfo.external_reference === orderId
+    );
 
     return myOrders;
   }

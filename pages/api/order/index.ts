@@ -28,8 +28,13 @@ async function post(req: NextApiRequest, res: NextApiResponse, token) {
     external_reference: order.id,
   });
 
+  await order.updateOrder(order.id, pref.init_point);
+
+  const orderId = order.id;
+
   res.send({
     url: pref.init_point,
+    orderId,
   });
 }
 
