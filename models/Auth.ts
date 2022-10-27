@@ -72,7 +72,6 @@ export class Auth {
 
   static async deleteUsedCode(code: number) {
     const result = await collection.where("code", "==", code).get();
-    console.log(result.docs[0]);
 
     if (result.empty) {
       return null;
@@ -80,7 +79,6 @@ export class Auth {
       const doc = result.docs[0];
       const auth = new Auth(doc.id);
       auth.data = doc.data();
-      console.log(auth.data.code);
       auth.data.code = null;
       await auth.push();
       return true;

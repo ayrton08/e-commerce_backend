@@ -27,4 +27,15 @@ export class Order {
     newOrder.data = newOrderData;
     return newOrder;
   }
+
+  static async getOrdersByUserId(userId?) {
+    const results = await collection.get();
+    const orders = results.docs.map((data) => {
+      return data.data();
+    });
+
+    const myOrders = orders.filter((order) => order.userId === userId);
+
+    return myOrders;
+  }
 }

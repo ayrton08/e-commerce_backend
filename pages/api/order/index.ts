@@ -4,18 +4,14 @@ import { authMiddleware } from "lib/middlewares";
 import method from "micro-method-router";
 import { Order } from "models/Order";
 import { createPreference } from "lib/mercadopago";
+import { products } from "lib/algolia";
 
-const products = {
-  "1234": {
-    title: "mate",
-    price: 100,
-  },
-};
-
-async function postHandler(req: NextApiRequest, res: NextApiResponse, token) {
+async function post(req: NextApiRequest, res: NextApiResponse, token) {
   const { productId } = req.query as any;
 
-  if (!products[productId]) {
+  const product = await products.getObject(productId);
+
+  if (!product) {
     res.status(404).json({ message: "not found" });
   }
 
@@ -38,7 +34,7 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse, token) {
 }
 
 const handler = method({
-  post: postHandler,
+  post,
 });
 
 export default authMiddleware(handler);
