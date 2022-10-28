@@ -6,7 +6,7 @@ export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);
   const code = await setNewCode(auth);
   // en esta linea usar sendGrid para enviar el email
-  console.log("enviamos al " + email + "el codigo " + code);
+  console.log("enviamos al " + email + " el codigo " + code);
   return true;
 }
 
