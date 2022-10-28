@@ -3,7 +3,6 @@ import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
 import { User } from "models/User";
-import { bodyMe } from "schemas/me.validation";
 
 async function get(
   req: NextApiRequest,
@@ -39,10 +38,11 @@ async function patch(
 }
 
 const patchMe = authMiddleware(patch);
+const getMe = authMiddleware(get);
 
 const handler = methods({
   patch: patchMe,
-  get,
+  get: getMe,
 });
 
-export default validationMiddleware(handler, null, bodyMe);
+export default validationMiddleware(handler, null, null);

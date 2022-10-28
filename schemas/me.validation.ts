@@ -6,5 +6,3 @@ export const bodyMeAddress = Yup.object()
   })
   .noUnknown()
   .strict();
-
-export const bodyMe = Yup.object().required();
