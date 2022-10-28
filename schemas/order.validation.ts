@@ -26,3 +26,10 @@ export const bodyOrder = Yup.object()
   })
   .noUnknown()
   .strict();
+
+export const reqOrderId = Yup.object()
+  .shape({
+    orderId: Yup.string().required(),
+  })
+  .noUnknown()
+  .strict();

@@ -2,13 +2,19 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { Order } from "models/Order";
+import { validationMiddleware } from "middlewares";
+import { reqOrderId } from "schemas/order.validation";
 
-export default methods({
-  async get(req: NextApiRequest, res: NextApiResponse) {
-    const orderId = req.query.orderId as string;
+async function get(req: NextApiRequest, res: NextApiResponse) {
+  const orderId = req.query.orderId as string;
 
-    const myOrder = await Order.getOrderById(orderId);
+  const myOrder = await Order.getOrderById(orderId);
 
-    res.send(myOrder);
-  },
+  res.send(myOrder);
+}
+
+const handler = methods({
+  get,
 });
+
+export default validationMiddleware(handler, reqOrderId, null);

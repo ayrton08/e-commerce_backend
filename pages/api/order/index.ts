@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware, validationMiddleware } from "middlewares";
-import method from "micro-method-router";
+import methods from "micro-method-router";
 import { createOrder } from "controllers/order.controller";
 import { bodyOrder, reqOrder } from "schemas/order.validation";
 
@@ -33,7 +33,7 @@ async function post(
 
 const postAuth = authMiddleware(post);
 
-const handler = method({
+const handler = methods({
   post: postAuth,
 });
 
