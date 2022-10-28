@@ -10,6 +10,7 @@ export default methods({
 
     if (topic === "merchant_order") {
       const order = await getMerchantOrder(id);
+      console.log(order);
       if (order.order_status === "paid") {
         // enviar un email de que salio todo bien
 
