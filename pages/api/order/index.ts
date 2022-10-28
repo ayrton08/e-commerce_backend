@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { authMiddleware } from "lib/middlewares";
+import { authMiddleware, validationMiddleware } from "middlewares";
 import method from "micro-method-router";
 import { createOrder } from "controllers/order.controller";
+import { bodyOrder, reqOrder } from "schemas/order.validation";
 
 async function post(
   req: NextApiRequest,
   res: NextApiResponse,
   token: { userId: string }
 ) {
-  const { productId } = req.query as any;
+  const productId = req.query.productId as string;
 
   try {
     const aditionalInfo = req.body;
@@ -21,16 +22,19 @@ async function post(
     });
 
     res.status(201).send({
+      error: false,
       url,
       orderId,
     });
   } catch (error) {
-    res.status(400).send({ message: error.message });
+    res.status(400).send({ error: true, message: error.message });
   }
 }
 
+const postAuth = authMiddleware(post);
+
 const handler = method({
-  post,
+  post: postAuth,
 });
 
-export default authMiddleware(handler);
+export default validationMiddleware(handler, reqOrder, bodyOrder);

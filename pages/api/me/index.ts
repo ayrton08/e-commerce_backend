@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import method from "micro-method-router";
 
-import { authMiddleware } from "lib/middlewares";
+import { authMiddleware } from "middlewares/middlewares";
 import { User } from "models/User";
 
 async function get(

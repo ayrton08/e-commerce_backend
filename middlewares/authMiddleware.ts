@@ -10,7 +10,7 @@ export function authMiddleware(callback) {
     }
 
     const decodedToken = decode(token);
-    
+
     if (decodedToken) {
       callback(req, res, decodedToken);
     } else {
