@@ -11,7 +11,7 @@ async function get(
 ) {
   const orders = await Order.getOrdersByUserId(token.userId);
 
-  res.status(200).json(orders);
+  res.status(200).json({ error: false, orders });
 }
 
 const handler = method({

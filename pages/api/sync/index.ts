@@ -6,29 +6,33 @@ import { products } from "lib/algolia";
 export default function (req: NextApiRequest, res: NextApiResponse) {
   const { limit } = getOffsetAndLimit(req, 100, 1000);
 
-  airtableBase("Products")
-    .select({
-      pageSize: limit,
-    })
-    .eachPage(
-      async function (records, fetchNextPage) {
-        const objects = records.map((r) => {
-          return {
-            objectID: r.id,
-            ...r.fields,
-          };
-        });
-        await products.saveObjects(objects);
-        fetchNextPage();
-      },
+  try {
+    airtableBase("Products")
+      .select({
+        pageSize: limit,
+      })
+      .eachPage(
+        async function (records, fetchNextPage) {
+          const objects = records.map((r) => {
+            return {
+              objectID: r.id,
+              ...r.fields,
+            };
+          });
+          await products.saveObjects(objects);
+          fetchNextPage();
+        },
 
-      function done(err) {
-        if (err) {
-          console.error(err);
-          return;
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log("It's done");
+          res.status(200).send({ error: false, message: "Database updated" });
         }
-        console.log("Termino");
-        res.send("Termino");
-      }
-    );
+      );
+  } catch (error) {
+    res.status(200).send({ error: true, message: error.message });
+  }
 }

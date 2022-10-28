@@ -10,7 +10,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 
   const myOrder = await Order.getOrderById(orderId);
 
-  res.send(myOrder);
+  res.status(200).send({ error: false, myOrder });
 }
 
 const handler = methods({

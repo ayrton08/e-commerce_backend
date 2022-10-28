@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import method from "micro-method-router";
+import methods from "micro-method-router";
 
-import { authMiddleware } from "middlewares";
+import { authMiddleware, validationMiddleware } from "middlewares";
 import { User } from "models/User";
+import { bodyMe } from "schemas/me.validation";
 
 async function get(
   req: NextApiRequest,
@@ -12,7 +13,9 @@ async function get(
   const user = new User(token.userId);
   await user.pull();
 
-  res.status(200).send(user.data);
+  const data = user.data;
+
+  res.status(200).send({ error: false, data });
 }
 
 async function patch(
@@ -30,12 +33,16 @@ async function patch(
   };
   user.push();
 
-  res.status(200).send(user.data);
+  const data = user.data;
+
+  res.status(200).send({ error: false, data });
 }
 
-const handler = method({
+const patchMe = authMiddleware(patch);
+
+const handler = methods({
+  patch: patchMe,
   get,
-  patch,
 });
 
-export default authMiddleware(handler);
+export default validationMiddleware(handler, null, bodyMe);
