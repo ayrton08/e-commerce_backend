@@ -16,7 +16,6 @@ export default methods({
 
         const orderId = order.external_reference;
         const myOrder = new Order(orderId);
-        console.log(order);
         await myOrder.pull();
         myOrder.data.status = "closed";
         await myOrder.push();
@@ -24,6 +23,6 @@ export default methods({
       }
     }
 
-    res.send(true);
+    res.status(200).send(true);
   },
 });
