@@ -1,10 +1,23 @@
-import { setNewCode } from "helpers/setNewCode";
-import { Auth } from "models/Auth";
+import { randomCode } from "../../helpers/setNewCode";
 
-describe("setNewCode()", () => {
-  test("should first", () => {
-    const auth = new Auth("id");
-    const result = setNewCode(auth);
-    console.log(result);
+describe("randomCode()", () => {
+  test("always should yield a diferente random code", () => {
+    const firstCode = randomCode();
+    const secondCode = randomCode();
+
+    expect(firstCode).not.toEqual(secondCode);
+  });
+  test("should return a number with 5 digits", () => {
+    const code = randomCode().toString();
+
+    expect(code.length).toBe(5);
   });
 });
+// describe("setNewCode()", () => {
+//   test("always should yield a diferente random code", () => {
+//     const firstCode = randomCode();
+//     const secondCode = randomCode();
+
+//     expect(firstCode).not.toEqual(secondCode);
+//   });
+// });
