@@ -5,11 +5,19 @@ mercadopago.configure({
 });
 
 export async function getMerchantOrder(id) {
-  const res = await mercadopago.merchant_orders.get(id);
-  return res.body;
+  try {
+    const res = await mercadopago.merchant_orders.get(id);
+    return res.body;
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 export async function createPreference(data) {
-  const res = await mercadopago.preferences.create(data);
-  return res.body;
+  try {
+    const res = await mercadopago.preferences.create(data);
+    return res.body;
+  } catch (error) {
+    console.error(error.message);
+  }
 }

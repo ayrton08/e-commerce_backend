@@ -19,15 +19,27 @@ export default methods({
         const user = await findUserById(myOrder.data.userId);
 
         myOrder.data.status = "closed";
-        await myOrder.push();
 
-        sendEmail({
-          addressee: user.data.email,
-          message: "The payment was successful",
-          title: "Payment status",
-        });
+        res.status(200).send(true);
+
+        if (myOrder.data.status === "closed") {
+          try {
+            sendEmail({
+              addressee: user.data.email,
+              message: "The payment was successful",
+              title: "Payment status",
+            });
+            res.status(200).send(true);
+          } catch (error) {
+            console.error(error.message);
+            res.status(200).send(true);
+          }
+        }
+        await myOrder.push();
+        res.status(200).send(true);
       }
     }
+
     res.status(200).send(true);
   },
 });
