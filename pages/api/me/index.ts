@@ -3,6 +3,7 @@ import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
 import { User } from "models/User";
+import { findUserById } from "controllers/user.controller";
 
 async function get(
   req: NextApiRequest,
@@ -24,8 +25,7 @@ async function patch(
 ) {
   const newData = req.body;
 
-  const user = new User(token.userId);
-  await user.pull();
+  const user = await findUserById(token.userId);
   user.data = {
     ...user.data,
     ...newData,

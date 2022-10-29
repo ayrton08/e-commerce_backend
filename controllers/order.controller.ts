@@ -72,3 +72,9 @@ export const createToken = async (email: string, code: number) => {
     token,
   };
 };
+
+export const findOrderById = async (orderId: string): Promise<Order> => {
+  const order = new Order(orderId);
+  await order.pull();
+  return order;
+};
