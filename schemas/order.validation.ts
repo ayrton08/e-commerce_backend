@@ -23,7 +23,6 @@ export const bodyOrder = Yup.object()
       failure: Yup.string(),
     }).required(),
     notification_url: Yup.string().required(),
-    user_email: Yup.string().required(),
   })
   .noUnknown()
   .strict();
