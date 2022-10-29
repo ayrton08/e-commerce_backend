@@ -20,23 +20,18 @@ export default methods({
 
         myOrder.data.status = "closed";
 
-        res.status(200).send(true);
-
-        if (myOrder.data.status === "closed") {
+        if (myOrder.data.status === "closed" && order.order_status === "paid") {
           try {
             sendEmail({
               addressee: user.data.email,
               message: "The payment was successful",
               title: "Payment status",
             });
-            res.status(200).send(true);
           } catch (error) {
             console.error(error.message);
-            res.status(200).send(true);
           }
         }
         await myOrder.push();
-        res.status(200).send(true);
       }
     }
 
