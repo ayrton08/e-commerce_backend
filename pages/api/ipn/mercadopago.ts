@@ -3,11 +3,12 @@ import methods from "micro-method-router";
 
 import { getMerchantOrder } from "lib/mercadopago";
 import { Order } from "models/Order";
+import { sendEmail } from "lib/sendGrid";
 
 export default methods({
   async post(req: NextApiRequest, res: NextApiResponse) {
     const { id, topic } = req.query;
-
+    console.log("body", req.body);
     if (topic === "merchant_order") {
       const order = await getMerchantOrder(id);
       console.log(order);
@@ -19,7 +20,6 @@ export default methods({
         await myOrder.pull();
         myOrder.data.status = "closed";
         await myOrder.push();
-        //sendEmail("tu pago fue confirmado")
       }
     }
 

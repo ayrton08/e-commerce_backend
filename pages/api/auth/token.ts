@@ -8,9 +8,11 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email, code } = req.body;
   try {
     const { token } = await createToken(email, code);
-    res.status(201).send({ error: false, token });
+    res.status(201).send({ error: null, token });
   } catch (error) {
-    res.status(401).send({ error: true, message: error.message });
+    res.status(401).send({
+      error: { code: 401, message: error.message },
+    });
   }
 }
 

@@ -27,7 +27,7 @@ async function post(
       orderId,
     });
   } catch (error) {
-    res.status(400).send({ error: true, message: error.message });
+    res.status(400).send({ error: { code: 400, message: error.message } });
   }
 }
 
