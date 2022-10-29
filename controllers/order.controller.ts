@@ -46,7 +46,7 @@ export const createOrder = async ({
   };
 };
 
-export const createToken = async (email, code) => {
+export const createToken = async (email: string, code: number) => {
   const auth = await Auth.findByEmailAndCode(email, code);
   const codeUsed = await Auth.findByEmailAndCode(email, null);
 

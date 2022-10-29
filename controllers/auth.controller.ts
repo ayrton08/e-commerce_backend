@@ -1,11 +1,16 @@
 import { User } from "models/User";
 import { Auth } from "models/Auth";
 import { setNewCode } from "helpers/setNewCode";
+import { sendEmail } from "lib/sendGrid";
 
 export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);
   const code = await setNewCode(auth);
-  // en esta linea usar sendGrid para enviar el email
+  sendEmail({
+    addressee: email,
+    message: `Insert this code to enter ${code}. The code will expire in 20 minutes.`,
+    title: `Your code to start section is ${code}.`,
+  });
   console.log("enviamos al " + email + " el codigo " + code);
   return true;
 }

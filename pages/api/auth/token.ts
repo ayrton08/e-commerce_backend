@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
-import { Auth } from "models/Auth";
-import { generate } from "lib/jwt";
 import { validationMiddleware } from "middlewares";
 import { bodyAuthToken } from "schemas/auth.validation";
 import { createToken } from "controllers/order.controller";

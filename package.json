@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "airtable": "^0.11.5",
     "algoliasearch": "^4.14.2",
     "date-fns": "^2.29.3",
