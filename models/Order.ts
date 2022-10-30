@@ -46,15 +46,11 @@ export class Order {
   }
 
   static async getOrderById(orderId: string) {
-    const results = await collection.get();
-    const orders = results.docs.map((data) => {
-      return data.data();
-    });
-
-    const myOrders = orders.filter(
-      (order) => order.aditionalInfo.external_reference === orderId
-    );
-
-    return myOrders;
+    const order = new Order(orderId);
+    await order.pull();
+    if (!order.data) {
+      throw new Error("Order not find");
+    }
+    return order.data;
   }
 }

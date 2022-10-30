@@ -9,9 +9,13 @@ async function get(
   res: NextApiResponse,
   token: { userId: string }
 ) {
-  const orders = await Order.getOrdersByUserId(token.userId);
-
-  res.status(200).json({ error: false, orders });
+  try {
+    const orders = await Order.getOrdersByUserId(token.userId);
+    res.status(200).json({ error: null, orders });
+    res.status(200).json({ error: null, orders });
+  } catch (error) {
+    res.status(400).json({ error: { code: 400, message: error.message } });
+  }
 }
 
 const handler = method({

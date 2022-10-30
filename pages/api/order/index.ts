@@ -22,7 +22,7 @@ async function post(
     });
 
     res.status(201).send({
-      error: false,
+      error: null,
       url,
       orderId,
     });

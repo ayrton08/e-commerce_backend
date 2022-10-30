@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
-import { User } from "models/User";
 import { findUserById } from "controllers/user.controller";
 
 async function get(
@@ -10,12 +9,9 @@ async function get(
   res: NextApiResponse,
   token: { userId: string }
 ) {
-  const user = new User(token.userId);
-  await user.pull();
+  const user = await findUserById(token.userId);
 
-  const data = user.data;
-
-  res.status(200).send({ error: false, data });
+  res.status(200).send({ error: null, data: { ...user.data } });
 }
 
 async function patch(
@@ -25,16 +21,18 @@ async function patch(
 ) {
   const newData = req.body;
 
-  const user = await findUserById(token.userId);
-  user.data = {
-    ...user.data,
-    ...newData,
-  };
-  user.push();
+  try {
+    const user = await findUserById(token.userId);
+    user.data = {
+      ...user.data,
+      ...newData,
+    };
+    user.push();
 
-  const data = user.data;
-
-  res.status(200).send({ error: false, data });
+    res.status(200).send({ error: null, data: { ...user.data } });
+  } catch (error) {
+    res.status(400).send({ error: { code: 400, message: error.message } });
+  }
 }
 
 const patchMe = authMiddleware(patch);

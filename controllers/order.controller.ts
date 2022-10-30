@@ -21,7 +21,7 @@ export const createOrder = async ({
   const product = await products.getObject(productId);
 
   if (!product) {
-    throw new Error("not found");
+    throw new Error("Product not found");
   }
 
   const order = await Order.createNewOrder({

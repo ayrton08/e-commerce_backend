@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
-import { User } from "models/User";
 import { bodyMeAddress } from "schemas/me.validation";
+import { updateAddress } from "controllers/user.controller";
 
 async function patch(
   req: NextApiRequest,
@@ -12,19 +12,12 @@ async function patch(
 ) {
   const { address } = req.body;
 
-  const user = new User(token.userId);
-
-  await user.pull();
-
-  user.data.address = {
-    ...user.data.address,
-    ...address,
-  };
-  user.push();
-
-  const data = user.data;
-
-  res.status(200).send({ error: false, ...data });
+  try {
+    const user = await updateAddress(token, address);
+    res.status(200).send({ error: null, data: { ...user.data } });
+  } catch (error) {
+    res.status(400).send({ error: { code: 400, message: error.message } });
+  }
 }
 
 const patchAuth = authMiddleware(patch);

@@ -1,38 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getOffsetAndLimit } from "helpers/requests";
-import { airtableBase } from "lib/airtable";
-import { products } from "lib/algolia";
+import { syncAlgoliaWithAirtable } from "controllers/product.controller";
 
-export default function (req: NextApiRequest, res: NextApiResponse) {
+export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { limit } = getOffsetAndLimit(req, 100, 1000);
 
   try {
-    airtableBase("Products")
-      .select({
-        pageSize: limit,
-      })
-      .eachPage(
-        async function (records, fetchNextPage) {
-          const objects = records.map((r) => {
-            return {
-              objectID: r.id,
-              ...r.fields,
-            };
-          });
-          await products.saveObjects(objects);
-          fetchNextPage();
-        },
-
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          console.log("It's done");
-          res.status(200).send({ error: false, message: "Database updated" });
-        }
-      );
+    await syncAlgoliaWithAirtable(limit, res);
   } catch (error) {
-    res.status(200).send({ error: true, message: error.message });
+    res.status(400).send({ error: { code: 400, message: error.message } });
   }
 }

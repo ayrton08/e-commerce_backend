@@ -15,9 +15,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
     delete auth.data.code;
     delete auth.data.expires;
 
-    const data = { ...auth.data };
-
-    res.status(201).send({ error: null, ...data });
+    res.status(201).send({ error: null, data: { ...auth.data } });
   } catch (error) {
     res.status(400).send({ error: { code: 400, message: error.message } });
   }
