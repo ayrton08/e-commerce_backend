@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { products } from "lib/algolia";
 import { generate } from "lib/jwt";
-import { createPreference } from "lib/mercadopago";
+import { createPreference, getMerchantOrder } from "lib/mercadopago";
+import { sendEmail } from "lib/sendGrid";
 import { Auth } from "models/Auth";
 import { Order } from "models/Order";
+import { findUserById } from "./user.controller";
 
 interface CreateOrder {
   productId: string;
@@ -77,4 +79,35 @@ export const findOrderById = async (orderId: string): Promise<Order> => {
   const order = new Order(orderId);
   await order.pull();
   return order;
+};
+
+export const updateStatusPayment = async (
+  topic: string,
+  id: string
+): Promise<void> => {
+  if (topic === "merchant_order") {
+    const order = await getMerchantOrder(id);
+    if (order.order_status === "paid") {
+      const orderId = order.external_reference;
+
+      const myOrder = await findOrderById(orderId);
+
+      const user = await findUserById(myOrder.data.userId);
+
+      myOrder.data.status = "closed";
+
+      if (myOrder.data.status === "closed" && order.order_status === "paid") {
+        try {
+          sendEmail({
+            addressee: user.data.email,
+            message: "The payment was successful",
+            title: "Payment status",
+          });
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+      await myOrder.push();
+    }
+  }
 };
