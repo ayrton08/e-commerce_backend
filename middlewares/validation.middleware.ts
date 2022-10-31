@@ -1,11 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export function validationMiddleware(callback, reqValidator?, bodyValidator?) {
+type Handler = (req: NextApiRequest, res: NextApiResponse) => void;
+
+export function validationMiddleware(
+  handler: Handler,
+  reqValidator?,
+  bodyValidator?
+) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       if (reqValidator) await reqValidator.validate(req.query);
       if (bodyValidator) await bodyValidator.validate(req.body);
-      callback(req, res);
+      handler(req, res);
     } catch (error) {
       res.status(422).send({ error: true, message: error.message });
     }

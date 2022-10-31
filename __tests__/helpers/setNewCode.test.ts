@@ -1,5 +1,4 @@
 import { randomCode } from "../../helpers/setNewCode";
-import { Auth } from "../../models/Auth";
 
 describe("randomCode()", () => {
   test("always should yield a diferente random code", () => {
@@ -14,6 +13,6 @@ describe("randomCode()", () => {
     expect(code.length).toBe(5);
   });
 });
-describe("setNewCode()", () => {
-  test("always should yield a diferente random code", () => {});
-});
+// describe("setNewCode()", () => {
+//   test("always should yield a diferente random code", () => {});
+// });

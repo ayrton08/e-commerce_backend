@@ -1,8 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { decode } from "lib/jwt";
 import parseToken from "parse-bearer-token";
+import { JwtPayload } from "jsonwebtoken";
 
-export function authMiddleware(callback) {
+type Handler = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  token: string | JwtPayload
+) => void;
+
+export function authMiddleware(handler: Handler) {
   return function (req: NextApiRequest, res: NextApiResponse) {
     const token = parseToken(req);
     if (!token) {
@@ -14,7 +21,7 @@ export function authMiddleware(callback) {
     const decodedToken = decode(token);
 
     if (decodedToken) {
-      callback(req, res, decodedToken);
+      handler(req, res, decodedToken);
     } else {
       res
         .status(401)

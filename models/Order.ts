@@ -49,7 +49,7 @@ export class Order {
     const order = new Order(orderId);
     await order.pull();
     if (!order.data) {
-      throw new Error("Order not find");
+      throw new Error("Order not found");
     }
     return order.data;
   }
