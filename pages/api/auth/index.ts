@@ -1,16 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
-import { findOrCreateAuth, sendCode } from "controllers/auth.controller";
-import { validationMiddleware } from "middlewares";
-import { bodyAuth } from "schemas/auth.validation";
+import {
+  findOrCreateAuth,
+  sendCode,
+} from "../../../controllers/auth.controller";
+import { validationMiddleware } from "../../../middlewares";
+import { bodyAuth } from "../../../schemas/auth.validation";
 
-async function post(req: NextApiRequest, res: NextApiResponse) {
+export async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body;
-
   try {
     const auth = await findOrCreateAuth(email);
     if (auth) {
-      sendCode(email);
+      await sendCode(email);
     }
     delete auth.data.code;
     delete auth.data.expires;

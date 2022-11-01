@@ -7,4 +7,5 @@ module.exports = {
   },
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
   verbose: true,
+  setupFiles: ["<rootDir>/jest.setup.js"],
 };

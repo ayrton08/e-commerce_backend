@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { products } from "lib/algolia";
-import { generate } from "lib/jwt";
-import { createPreference, getMerchantOrder } from "lib/mercadopago";
-import { sendEmail } from "lib/sendGrid";
-import { Auth } from "models/Auth";
-import { Order } from "models/Order";
+import { products } from "../lib/algolia";
+import { generate } from "../lib/jwt";
+import { createPreference, getMerchantOrder } from "../lib/mercadopago";
+import { sendEmail } from "../lib/sendGrid";
+import { Auth } from "../models/Auth";
+import { Order } from "../models/Order";
 import { findUserById } from "./user.controller";
 
 interface CreateOrder {

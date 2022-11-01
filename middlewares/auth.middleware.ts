@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { decode } from "lib/jwt";
+import { decode } from "../lib/jwt";
 import parseToken from "parse-bearer-token";
 import { JwtPayload } from "jsonwebtoken";
 

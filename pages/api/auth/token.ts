@@ -1,18 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
-import { validationMiddleware } from "middlewares";
-import { bodyAuthToken } from "schemas/auth.validation";
-import { createToken } from "controllers/order.controller";
+import { validationMiddleware } from "../../../middlewares";
+import { bodyAuthToken } from "../../../schemas/auth.validation";
+import { createToken } from "../../../controllers/order.controller";
 
-async function post(req: NextApiRequest, res: NextApiResponse) {
+export async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email, code } = req.body;
   try {
     const { token } = await createToken(email, code);
+    if (!token) throw new Error("Token was not create");
+
     res.status(201).send({ error: null, token });
   } catch (error) {
-    res.status(401).send({
-      error: { code: 401, message: error.message },
-    });
+    res.status(401).send({});
   }
 }
 

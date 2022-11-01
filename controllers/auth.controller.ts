@@ -1,7 +1,7 @@
-import { User } from "models/User";
-import { Auth } from "models/Auth";
-import { setNewCode } from "helpers/setNewCode";
-import { sendEmail } from "lib/sendGrid";
+import { User } from "../models/User";
+import { Auth } from "../models/Auth";
+import { setNewCode } from "../helpers/setNewCode";
+import { sendEmail } from "../lib/sendGrid";
 
 export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);

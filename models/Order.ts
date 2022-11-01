@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { firestore } from "lib/firestore";
+import { firestore } from "../lib/firestore";
 
 const collection = firestore.collection("orders");
 

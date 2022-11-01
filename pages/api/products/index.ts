@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
-import { getOffsetAndLimit } from "helpers/requests";
-import { validationMiddleware } from "middlewares";
-import { reqProductIndex } from "schemas/product.validation";
-import { findProductsWithPagination } from "controllers/product.controller";
+import { getOffsetAndLimit } from "../../../helpers/requests";
+import { validationMiddleware } from "../../../middlewares";
+import { reqProductIndex } from "../../../schemas/product.validation";
+import { findProductsWithPagination } from "../../../controllers/product.controller";
 
-async function get(req: NextApiRequest, res: NextApiResponse) {
+export async function get(req: NextApiRequest, res: NextApiResponse) {
   const { limit, offset } = getOffsetAndLimit(req);
   const search = req.query.search as string;
 

@@ -1,5 +1,5 @@
-import { airtableBase } from "lib/airtable";
-import { products } from "lib/algolia";
+import { airtableBase } from "../lib/airtable";
+import { products } from "../lib/algolia";
 
 export const findProductById = async (id: string) => {
   const product = await products.getObject(id);
