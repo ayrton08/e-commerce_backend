@@ -17,12 +17,6 @@
   <br/>
   <br/>
 
-## Why I did it ?
-
-Actually this project is a remake of another project on the same game that had been built with Typescript only, the first time when I built it, it helped me a lot to integrate even better the concepts of asynchrony and use different databases.
-<br/>
-<br/>
-
 ## How did I build it ?
 
 This API was built with Next.js, using the Serverless Functions architecture. The code is written with Typescript. As databases, the API is prepared to use connections to Firebase, Airtable and Algolia.
