@@ -1,15 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
-import { validationMiddleware } from "middlewares";
-import { reqProduct } from "schemas/product.validation";
-import { findProductById } from "controllers/product.controller";
+import { validationMiddleware } from "../../../middlewares";
+import { reqProduct } from "../../../schemas/product.validation";
+import { findProductById } from "../../../controllers/product.controller";
 
-async function get(req: NextApiRequest, res: NextApiResponse) {
+export async function get(req: NextApiRequest, res: NextApiResponse) {
   const productId = req.query.productId as string;
 
   try {
     const product = await findProductById(productId);
+    if (!product) throw new Error();
+
     res.status(201).send({ error: null, product: { ...product } });
   } catch (error) {
     res.status(404).send({

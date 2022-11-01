@@ -12,7 +12,9 @@ export async function post(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(201).send({ error: null, token });
   } catch (error) {
-    res.status(401).send({});
+    res.status(401).send({
+      error: { code: 401, message: error.message },
+    });
   }
 }
 

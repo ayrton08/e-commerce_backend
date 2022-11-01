@@ -1,34 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { createMocks, RequestMethod } from "node-mocks-http";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { post } from "../../../pages/api/auth/token";
 import { createToken } from "../../../controllers/order.controller";
+import { mockReqRes } from "../../../__mocks__/requestMock";
 
 jest.mock("../../../controllers/order.controller");
 
-function mockRequestResponse(method: RequestMethod = "POST") {
-  const {
-    req,
-    res,
-  }: { req: NextApiRequest | any; res: NextApiResponse | any } = createMocks({
-    method,
-  });
-
-  req.body = { email: "test@gmail.com", code: 13957 };
-
-  return { req, res };
-}
+const options = { body: { email: "test@gmail.com", code: 13957 } };
 
 describe("api/auth/token", () => {
   test("should return a jwt token", async () => {
-    (createToken as jest.Mock).mockResolvedValue({ token: "123456789" });
-
     const expetedResponse = {
       error: null,
       token: "123456789",
     };
+    (createToken as jest.Mock).mockResolvedValue(expetedResponse);
 
-    const { req, res } = mockRequestResponse();
+    const { req, res } = mockReqRes("POST", options);
     await post(req, res);
 
     const response = res._getData();
@@ -48,7 +34,7 @@ describe("api/auth/token", () => {
 
     (createToken as jest.Mock).mockResolvedValue(new Error());
 
-    const { req, res } = mockRequestResponse();
+    const { req, res } = mockReqRes("POST", options);
     await post(req, res);
 
     const response = res._getData();

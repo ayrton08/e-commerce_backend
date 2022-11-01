@@ -1,23 +1,12 @@
-import { createMocks, RequestMethod } from "node-mocks-http";
-import type { NextApiRequest, NextApiResponse } from "next";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { post } from "../../../pages/api/auth";
+import { mockReqRes } from "../../../__mocks__/requestMock";
 
 describe("api/auth", () => {
-  function mockRequestResponse(method: RequestMethod = "POST") {
-    const {
-      req,
-      res,
-    }: { req: NextApiRequest | any; res: NextApiResponse | any } = createMocks({
-      method,
-    });
-
-    req.body = { email: "test@gmail.com" };
-
-    return { req, res };
-  }
+  const options = { body: { email: "test@gmail.com" } };
 
   test("should return a successful response", async () => {
-    const { req, res } = mockRequestResponse();
+    const { req, res } = mockReqRes("POST", options);
     await post(req, res);
 
     const response = res._getData();

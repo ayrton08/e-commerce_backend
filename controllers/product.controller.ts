@@ -15,6 +15,7 @@ export const findProductsWithPagination = async (
     length: limit,
     offset: offset,
   });
+
   return results;
 };
 
