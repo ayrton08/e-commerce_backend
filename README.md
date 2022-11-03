@@ -37,9 +37,13 @@ To run it locally:
 
 ```bash
 git@github.com:ayrton08/e-commerce_backend.git
+```
 
+```bash
 yarn && yarn dev
+```
 
+```bash
 npm install && npm run dev
 ```
 
@@ -47,7 +51,9 @@ To run it with _Docker_:
 
 ```bash
 docker push ayrton08/api-ecommerce
+```
 
+```bash
 docker run --rm -p 3000:3000 ayrton08/api-ecommerce
 ```
 
