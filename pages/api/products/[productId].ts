@@ -10,7 +10,6 @@ export async function get(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const product = await findProductById(productId);
-    if (!product) throw new Error();
 
     res.status(201).send({ error: null, product: { ...product } });
   } catch (error) {

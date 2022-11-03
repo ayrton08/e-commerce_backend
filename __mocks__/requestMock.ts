@@ -10,6 +10,7 @@ export function mockReqRes(method: RequestMethod = "POST", options?) {
   });
 
   req.helpers = options?.helpers;
+  req.query = options?.query;
   req.body = options?.body;
 
   return { req, res };

@@ -7,37 +7,39 @@ import { findProductById } from "../../../controllers/product.controller";
 jest.mock("../../../controllers/product.controller");
 
 const options = {
-  headers: {
-    query: {
-      productId: "123456",
-    },
+  query: {
+    productId: "123456",
   },
 };
 
 describe("api/products/:id", () => {
   const { req, res } = mockReqRes("GET", options);
 
-  test("should return a product", async () => {
-    const expetedResponse = {
-      error: null,
-      product,
-    };
+  const expectedResponse = {
+    error: null,
+    product,
+  };
 
-    (findProductById as jest.Mock).mockReturnValue(product);
+  test("should return a product", async () => {
+    (findProductById as jest.Mock).mockResolvedValue(product);
 
     await get(req, res);
 
     const response = res._getData();
-    expect(response).toEqual(expetedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   test("should return a error response if an invalid productId is provided", async () => {
     const expetedResponse = {
-      error: null,
-      product,
+      error: {
+        code: 404,
+        message: "no id",
+      },
     };
 
-    (findProductById as jest.Mock).mockReturnValue(new Error());
+    (findProductById as jest.Mock).mockReturnValueOnce(
+      Promise.reject(new Error("no id"))
+    );
 
     await get(req, res);
 
