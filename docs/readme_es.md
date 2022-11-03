@@ -67,6 +67,14 @@ Aparte de realizar las instalaciones tambien será necesario agregar las variabl
 </ul>
 <br/>
 
+## Tests
+
+Los tests fueron creados con _Jest_, para correr los test use el siguiente comando:
+
+```bash
+yarn test or npm run test
+```
+
 ## Contenedor
 
 Para correr un contenedor de la imagen de este proyecto con Docker puede utilizar los siguientes comandos:

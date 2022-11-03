@@ -70,6 +70,14 @@ Apart from doing the installations, it is necessary to add the environment varia
 <br/>
 <br/>
 
+## Tests
+
+The tests were performed with _Jest_, to run the tests use the following command:
+
+```bash
+yarn test or npm run test
+```
+
 ## Container
 
 To run a container of this project with Docker you can use the following commands:
