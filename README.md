@@ -1,6 +1,10 @@
 # E-commerce API
 
-## <a href="/docs/readme_es.md">Español</a>
+<div align="center">
+<img src="https://saasradar.net/wp-content/uploads/2022/03/api_rest.png" alt="MaterialUI" width="300"  />
+</div>
+
+Languages: <a href="/docs/readme_es.md">Español</a>
 
 ## Api Documentation
 
@@ -63,6 +67,21 @@ Apart from doing the installations, it is necessary to add the environment varia
 - <a href="https://www.mercadopago.com.ar/developers/es" target="_blank"> <img src="https://yt3.ggpht.com/cmFrex7B0vUrC-Tu_dD1EyFDpamtb-SmV45S9lbisLjCZtYMVi79E-hpb9O3x5-c1u-UZgTS=s900-c-k-c0x00ffffff-no-rj" alt="typescript" width="40" height="40"/> Mercado Pago Dev</a>
 
 </ul>
+<br/>
+<br/>
+
+## Container
+
+To run a container of this project with Docker you can use the following commands:
+
+```bash
+
+docker push ayrton08/api-ecommerce
+
+docker run --rm -p 3000:3000 ayrton08/api-ecommerce
+
+```
+
 <br/>
 
 ```bash

@@ -1,33 +1,35 @@
 # E-commerce API
 
-## <a href="/docs/readme_es.md">Español</a>
+<div align="center">
+<img src="https://saasradar.net/wp-content/uploads/2022/03/api_rest.png" alt="MaterialUI" width="300"  />
+</div>
 
-## Api Documentacion
+## Api Documentación
 
-[Documentation API](https://documenter.getpostman.com/view/19402742/2s8YKApk8i)
+[Documentación API](https://documenter.getpostman.com/view/19402742/2s8YKApk8i)
 
 [Deploy](https://e-commerce-backend-jade.vercel.app/)
 
 <br/>
 
-## Features
+## Características
 
-- Create an user
-- User authentication with passwordless
-- Update user data
-- Payment gateway (mercado pago)
+- Crear un usuario
+- Autenticación con sistema _passwordless_
+- Actualizar informacion del usuario
+- Plataforma de pagos (mercado pago)
   <br/>
   <br/>
 
-## How did I build it ?
+## Como fue construido ?
 
-This API was built with Next.js, using the Serverless Functions architecture. The code is written with Typescript. As databases, the API is prepared to use connections to Firebase, Airtable and Algolia.
+Esta REST API fue construida con Next.js, usando la arquitectura _Serveless Functions_. El codigo esta escrito con Typescript. Y en el manejo de datos se implento el uso de base de datos como _Firebase, Airtable y Algolia_.
 <br/>
 <br/>
 
-## Installation
+## Instalación
 
-Use the package manager yarn or npm to install the project.
+Use el manejador de paquetes _yarn_ o _npm_ para instalar las dependencias.
 
 ```bash
 git@github.com:ayrton08/e-commerce_backend.git
@@ -39,11 +41,11 @@ npm install && npm run dev
 
 <br/>
 
-## How to use
+## Implementación de uso
 
-Apart from doing the installations, it is necessary to add the environment variables, in the **.env.example** file the necessary variables are declared for the project to work.
+Aparte de realizar las instalaciones tambien será necesario agregar las variables de entorno para una conección exitoza de las herramientas empleadas. En el archivo **.env.example** dejo cuales son las variables de entorno necesarias para que el projecto funcione.
 
-## Technologies
+## Tecnologias
 
 <br/>
 <ul align="start">
@@ -65,10 +67,22 @@ Apart from doing the installations, it is necessary to add the environment varia
 </ul>
 <br/>
 
+## Contenedor
+
+Para correr un contenedor de la imagen de este proyecto con Docker puede utilizar los siguientes comandos:
+
+```bash
+
+docker push ayrton08/api-ecommerce
+
+docker run --rm -p 3000:3000 ayrton08/api-ecommerce
+
+```
+
 ```bash
 Node Version : > 15v
 ```
 
-## License
+## Licencia
 
 [MIT](https://choosealicense.com/licenses/mit/)
