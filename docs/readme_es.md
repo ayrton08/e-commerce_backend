@@ -31,12 +31,22 @@ Esta REST API fue construida con Next.js, usando la arquitectura _Serveless Func
 
 Use el manejador de paquetes _yarn_ o _npm_ para instalar las dependencias.
 
+Para correrlo en local:
+
 ```bash
 git@github.com:ayrton08/e-commerce_backend.git
 
 yarn && yarn dev
 
 npm install && npm run dev
+```
+
+Para correrlo con _Docker_:
+
+```bash
+docker push ayrton08/api-ecommerce
+
+docker run --rm -p 3000:3000 ayrton08/api-ecommerce
 ```
 
 <br/>
@@ -64,6 +74,8 @@ Aparte de realizar las instalaciones tambien será necesario agregar las variabl
 
 - <a href="https://www.mercadopago.com.ar/developers/es" target="_blank"> <img src="https://yt3.ggpht.com/cmFrex7B0vUrC-Tu_dD1EyFDpamtb-SmV45S9lbisLjCZtYMVi79E-hpb9O3x5-c1u-UZgTS=s900-c-k-c0x00ffffff-no-rj" alt="typescript" width="40" height="40"/> Mercado Pago Dev</a>
 
+- <a href="https://www.mercadopago.com.ar/developers/es" target="_blank"> <img src="https://atix.de/wp-content/uploads/docker_Logo.png" alt="typescript" width="40" height="40"/> Docker</a>
+
 </ul>
 <br/>
 
@@ -73,18 +85,6 @@ Los tests fueron creados con _Jest_, para correr los test use el siguiente coman
 
 ```bash
 yarn test or npm run test
-```
-
-## Contenedor
-
-Para correr un contenedor de la imagen de este proyecto con Docker puede utilizar los siguientes comandos:
-
-```bash
-
-docker push ayrton08/api-ecommerce
-
-docker run --rm -p 3000:3000 ayrton08/api-ecommerce
-
 ```
 
 ```bash

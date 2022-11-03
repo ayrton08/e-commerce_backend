@@ -33,12 +33,22 @@ This API was built with Next.js, using the Serverless Functions architecture. Th
 
 Use the package manager yarn or npm to install the project.
 
+To run it locally:
+
 ```bash
 git@github.com:ayrton08/e-commerce_backend.git
 
 yarn && yarn dev
 
 npm install && npm run dev
+```
+
+To run it with _Docker_:
+
+```bash
+docker push ayrton08/api-ecommerce
+
+docker run --rm -p 3000:3000 ayrton08/api-ecommerce
 ```
 
 <br/>
@@ -76,18 +86,6 @@ The tests were performed with _Jest_, to run the tests use the following command
 
 ```bash
 yarn test or npm run test
-```
-
-## Container
-
-To run a container of this project with Docker you can use the following commands:
-
-```bash
-
-docker push ayrton08/api-ecommerce
-
-docker run --rm -p 3000:3000 ayrton08/api-ecommerce
-
 ```
 
 <br/>
