@@ -50,7 +50,7 @@ npm install && npm run dev
 To run it with _Docker_:
 
 ```bash
-docker push ayrton08/api-ecommerce
+docker pull ayrton08/api-ecommerce
 ```
 
 ```bash
