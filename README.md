@@ -50,7 +50,7 @@ npm install && npm run dev
 To run it with _Docker_:
 
 ```bash
-docker push ayrton08/api-ecommerce
+docker pull ayrton08/api-ecommerce
 ```
 
 ```bash
@@ -81,6 +81,8 @@ Apart from doing the installations, it is necessary to add the environment varia
 - <a href="https://sendgrid.com/" target="_blank"> <img src="https://avatars.githubusercontent.com/u/181234?s=200&v=4" alt="typescript" width="40" height="40"/> SendGrid</a>
 
 - <a href="https://www.mercadopago.com.ar/developers/es" target="_blank"> <img src="https://yt3.ggpht.com/cmFrex7B0vUrC-Tu_dD1EyFDpamtb-SmV45S9lbisLjCZtYMVi79E-hpb9O3x5-c1u-UZgTS=s900-c-k-c0x00ffffff-no-rj" alt="typescript" width="40" height="40"/> Mercado Pago Dev</a>
+
+- <a href="https://www.mercadopago.com.ar/developers/es" target="_blank"> <img src="https://atix.de/wp-content/uploads/docker_Logo.png" alt="typescript" width="40" height="40"/> Docker</a>
 
 </ul>
 <br/>
