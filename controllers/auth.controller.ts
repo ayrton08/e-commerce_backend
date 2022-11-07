@@ -5,8 +5,9 @@ import { sendEmail } from "../lib/sendGrid";
 
 export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);
+  await auth.pull()
   const code = await setNewCode(auth);
-  sendEmail({
+  await sendEmail({
     addressee: email,
     message: `Insert this code to enter ${code}. The code will expire in 20 minutes.`,
     title: `Your code to start section is ${code}.`,
@@ -22,10 +23,10 @@ export async function findOrCreateAuth(email: string): Promise<Auth> {
     return auth;
   }
   const newUser = await User.createNewUser({
-    email: email,
+    email,
   });
   const newAuth = await Auth.createNewAuth({
-    email: email,
+    email,
     userId: newUser.id,
     code: "",
     expires: new Date(),
