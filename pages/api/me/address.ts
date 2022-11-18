@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
-import { bodyMeAddress } from "schemas/me.validation";
-import { updateAddress } from "controllers/user.controller";
+import { bodyMeAddress } from "schemas/me-validation";
+import { updateAddress } from "controllers/user-controller";
 
 async function patch(
   req: NextApiRequest,

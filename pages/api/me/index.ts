@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { authMiddleware, validationMiddleware } from "middlewares";
-import { findUserById } from "controllers/user.controller";
+import { findUserById } from "controllers/user-controller";
 
 async function get(
   req: NextApiRequest,
