@@ -12,4 +12,5 @@ export const bodyAuthToken = Yup.object()
     email: Yup.string().required(),
     code: Yup.number().required(),
   })
-  .noUnknown().strict();
+  .noUnknown()
+  .strict();

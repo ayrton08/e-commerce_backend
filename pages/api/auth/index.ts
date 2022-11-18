@@ -8,7 +8,7 @@ import { validationMiddleware } from "../../../middlewares";
 import { bodyAuth } from "../../../schemas/auth-validation";
 
 export async function post(req: NextApiRequest, res: NextApiResponse) {
-  const { email } = JSON.parse(req.body);
+  const { email } = req.body;
   try {
     const auth = await findOrCreateAuth(email);
     if (auth) {
