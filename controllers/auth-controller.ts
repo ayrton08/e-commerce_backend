@@ -1,6 +1,6 @@
 import { User } from "../models/User";
 import { Auth } from "../models/Auth";
-import { setNewCode } from "../helpers/setNewCode";
+import { setNewCode } from "../helpers/setnewcode";
 import { sendEmail } from "../lib/sendGrid";
 
 export async function sendCode(email: string) {

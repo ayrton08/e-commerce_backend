@@ -3,7 +3,7 @@ import methods from "micro-method-router";
 
 import { Order } from "models/Order";
 import { validationMiddleware } from "middlewares";
-import { reqOrderId } from "schemas/order.validation";
+import { reqOrderId } from "schemas/order-validation";
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   const orderId = req.query.orderId as string;

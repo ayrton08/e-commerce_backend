@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 
 import { validationMiddleware } from "../../../middlewares";
-import { reqProduct } from "../../../schemas/product.validation";
-import { findProductById } from "../../../controllers/product.controller";
+import { reqProduct } from "../../../schemas/product-validation";
+import { findProductById } from "../../../controllers/product-controller";
 
 export async function get(req: NextApiRequest, res: NextApiResponse) {
   const productId = req.query.productId as string;

@@ -2,7 +2,7 @@ import { mockReqRes } from "../../../__mocks__/requestMock";
 import { get } from "../../../pages/api/products/[productId]";
 import { product } from "../../../__mocks__/fixtures/products";
 
-import { findProductById } from "../../../controllers/product.controller";
+import { findProductById } from "../../../controllers/product-controller";
 
 jest.mock("../../../controllers/product.controller");
 

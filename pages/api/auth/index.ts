@@ -3,9 +3,9 @@ import methods from "micro-method-router";
 import {
   findOrCreateAuth,
   sendCode,
-} from "../../../controllers/auth.controller";
+} from "../../../controllers/auth-controller";
 import { validationMiddleware } from "../../../middlewares";
-import { bodyAuth } from "../../../schemas/auth.validation";
+import { bodyAuth } from "../../../schemas/auth-validation";
 
 export async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body;

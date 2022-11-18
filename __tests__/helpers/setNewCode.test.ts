@@ -1,4 +1,4 @@
-import { randomCode } from "../../helpers/setNewCode";
+import { randomCode } from "../../helpers/setnewcode";
 
 describe("randomCode()", () => {
   test("always should yield a diferente random code", () => {

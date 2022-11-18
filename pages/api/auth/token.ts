@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 import { validationMiddleware } from "../../../middlewares";
-import { bodyAuthToken } from "../../../schemas/auth.validation";
-import { createToken } from "../../../controllers/order.controller";
+import { bodyAuthToken } from "../../../schemas/auth-validation";
+import { createToken } from "../../../controllers/order-controller";
 
 export async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email, code } = req.body;

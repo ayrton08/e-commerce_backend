@@ -1,6 +1,6 @@
 import { Auth } from "../../models/Auth";
 import { User } from "../../models/User";
-import { findOrCreateAuth } from "../../controllers/auth.controller";
+import { findOrCreateAuth } from "../../controllers/auth-controller";
 
 jest.mock("../../models/Auth", () => {
   return {

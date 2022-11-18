@@ -3,8 +3,8 @@ import methods from "micro-method-router";
 
 import { getOffsetAndLimit } from "../../../helpers/requests";
 import { validationMiddleware } from "../../../middlewares";
-import { reqProductIndex } from "../../../schemas/product.validation";
-import { findProductsWithPagination } from "../../../controllers/product.controller";
+import { reqProductIndex } from "../../../schemas/product-validation";
+import { findProductsWithPagination } from "../../../controllers/product-controller";
 
 export async function get(req: NextApiRequest, res: NextApiResponse) {
   const { limit, offset } = getOffsetAndLimit(req);

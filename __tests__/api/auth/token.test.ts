@@ -1,5 +1,5 @@
 import { post } from "../../../pages/api/auth/token";
-import { createToken } from "../../../controllers/order.controller";
+import { createToken } from "../../../controllers/order-controller";
 import { mockReqRes } from "../../../__mocks__/requestMock";
 
 jest.mock("../../../controllers/order.controller");

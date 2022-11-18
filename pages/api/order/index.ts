@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware, validationMiddleware } from "middlewares";
 import methods from "micro-method-router";
 import { createOrder } from "controllers/order.controller";
-import { bodyOrder, reqOrder } from "schemas/order.validation";
+import { bodyOrder, reqOrder } from "schemas/order-validation";
 
 async function post(
   req: NextApiRequest,
