@@ -8,7 +8,6 @@ export function validationMiddleware(
   bodyValidator?
 ) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
-    console.log(req.body);
     try {
       if (reqValidator) await reqValidator.validate(req.query);
       if (bodyValidator) await bodyValidator.validate(req.body);
