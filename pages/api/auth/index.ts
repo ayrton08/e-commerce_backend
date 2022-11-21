@@ -7,7 +7,16 @@ import {
 import { validationMiddleware } from "../../../middlewares";
 import { bodyAuth } from "../../../schemas/auth-validation";
 
+import NextCors from "nextjs-cors";
+
 export async function post(req: NextApiRequest, res: NextApiResponse) {
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
+
   const { email } = req.body;
   try {
     const auth = await findOrCreateAuth(email);

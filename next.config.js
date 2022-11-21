@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line no-undef
-module.exports = {
+
+const nextConfig = {
+  reactStrictMode: true,
   async headers() {
     return [
       {
@@ -23,3 +25,6 @@ module.exports = {
     ];
   },
 };
+
+// eslint-disable-next-line no-undef
+module.exports = nextConfig;
