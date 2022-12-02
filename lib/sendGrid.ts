@@ -18,7 +18,7 @@ export const sendEmail = async ({
     from: "ayrtonjuarez90@gmail.com",
     subject: `${title}`,
     text: `${message}`,
-    html: `<strong>${message}</strong>`,
+    html: message,
   };
   try {
     await sgMail.send(msg);
