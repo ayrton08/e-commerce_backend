@@ -15,7 +15,7 @@ export const sendEmail = async ({
 }: SendEmail): Promise<void> => {
   const msg = {
     to: addressee,
-    from: "ayrtonjuarez90@gmail.com",
+    from: "Ayrton Juarez",
     subject: `${title}`,
     text: `${message}`,
     html: message,
