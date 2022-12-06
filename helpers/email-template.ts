@@ -240,22 +240,7 @@ export const emailAuth = (code: number) => {
                                 "
                                 >${code}</code
                               >
-                              <button
-                                id="button"
-                                style="
-                                  display: inline-block;
-                                  padding: 16px 15px;
-                                  font-family: 'Source Sans Pro', Helvetica, Arial,
-                                    sans-serif;
-                                  font-size: 16px;
-                                  color: #ffffff;
-                                  text-decoration: none;
-                                  background-color: #1a82e2;
-                                  border: 0;
-                                  cursor: pointer;
-                                "
-                                >Copy code</button
-                              >
+                              
                             </td>
                           </tr>
                         </table>
