@@ -157,6 +157,7 @@ export const emailAuth = (code: number) => {
                       font-weight: 700;
                       letter-spacing: -1px;
                       line-height: 48px;
+                      margin-left: 30px;
                       "
                   >
                   Authentication code
@@ -237,7 +238,7 @@ export const emailAuth = (code: number) => {
                                   width: 50px;
                                   font-weight: bold;
                                 "
-                                >{code}</code
+                                >${code}</code
                               >
                               <button
                                 id="button"
