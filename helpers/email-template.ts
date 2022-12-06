@@ -157,7 +157,7 @@ export const emailAuth = (code: number) => {
                       font-weight: 700;
                       letter-spacing: -1px;
                       line-height: 48px;
-                      margin-left: 30px;
+                      margin-right: 30px;
                       "
                   >
                   Authentication code
@@ -178,6 +178,7 @@ export const emailAuth = (code: number) => {
                         margin-right: 20px;
                         max-width: 80px;
                         min-width: 80px;
+                        margin-left: 30px;
                       "
                     />
                   </a>
