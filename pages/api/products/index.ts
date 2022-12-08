@@ -1,10 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
+import * as Yup from "yup";
 
 import { getOffsetAndLimit } from "../../../helpers/requests";
 import { validationMiddleware } from "../../../middlewares";
-import { reqProductIndex } from "../../../schemas/product-validation";
 import { findProductsWithPagination } from "../../../controllers/product-controller";
+
+export const schema = Yup.object().shape({
+  search: Yup.string(),
+});
 
 export async function get(req: NextApiRequest, res: NextApiResponse) {
   const { limit, offset } = getOffsetAndLimit(req);
@@ -30,4 +34,4 @@ const handler = methods({
   get,
 });
 
-export default validationMiddleware(handler, reqProductIndex, null);
+export default validationMiddleware(handler, schema, null);

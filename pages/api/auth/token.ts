@@ -1,8 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import * as Yup from "yup";
+
 import methods from "micro-method-router";
 import { validationMiddleware } from "../../../middlewares";
-import { bodyAuthToken } from "../../../schemas/auth-validation";
 import { createToken } from "../../../controllers/order-controller";
+
+const schema = Yup.object()
+  .shape({
+    email: Yup.string().required(),
+    code: Yup.number().required(),
+  })
+  .noUnknown()
+  .strict();
 
 export async function post(req: NextApiRequest, res: NextApiResponse) {
   const { email, code } = req.body;
@@ -22,4 +31,4 @@ const handler = methods({
   post,
 });
 
-export default validationMiddleware(handler, null, bodyAuthToken);
+export default validationMiddleware(handler, null, schema);
