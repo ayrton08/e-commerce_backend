@@ -3,7 +3,17 @@ import { products } from '../lib/algolia';
 import { IProduct, IProductResponse } from '../interfaces/product';
 
 export const findProductById = async (id: string) => {
-  const product = await products.getObject(id);
+  const result: IProductResponse = await products.getObject(id);
+
+  const product: IProduct = {
+    description: result.Description,
+    images: result.Images[0].url,
+    name: result.Name,
+    price: result['Unit cost'],
+    type: result.Type,
+    objectID: result.objectID,
+  };
+
   return product;
 };
 

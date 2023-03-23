@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import methods from "micro-method-router";
-import * as Yup from "yup";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import methods from 'micro-method-router';
+import * as Yup from 'yup';
 
-import { validationMiddleware } from "../../../middlewares";
-import { findProductById } from "../../../controllers/product-controller";
+import { validationMiddleware } from '../../../middlewares';
+import { findProductById } from '../../../controllers/product-controller';
 
 const schema = Yup.object()
   .shape({
@@ -18,7 +18,7 @@ export async function get(req: NextApiRequest, res: NextApiResponse) {
   try {
     const product = await findProductById(productId);
 
-    res.status(201).send({ error: null, product: { ...product } });
+    res.status(201).send({ error: null, product });
   } catch (error) {
     res.status(404).send({
       error: { code: 404, message: error.message },

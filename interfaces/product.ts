@@ -5,7 +5,7 @@ export interface IProduct {
   images: string[];
   price: number;
   objectID: string;
-  total: number;
+  total?: number;
 }
 
 export interface IProductResponse {
