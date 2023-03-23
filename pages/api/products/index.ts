@@ -1,10 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import methods from "micro-method-router";
-import * as Yup from "yup";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import methods from 'micro-method-router';
+import * as Yup from 'yup';
 
-import { getOffsetAndLimit } from "../../../helpers/requests";
-import { validationMiddleware } from "../../../middlewares";
-import { findProductsWithPagination } from "../../../controllers/product-controller";
+import { getOffsetAndLimit } from '../../../helpers/requests';
+import { validationMiddleware } from '../../../middlewares';
+import { findProductsWithPagination } from '../../../controllers/product-controller';
 
 export const schema = Yup.object().shape({
   search: Yup.string(),
@@ -15,14 +15,14 @@ export async function get(req: NextApiRequest, res: NextApiResponse) {
   const search = req.query.search as string;
 
   try {
-    const results = await findProductsWithPagination(search, limit, offset);
+    const products = await findProductsWithPagination(search, limit, offset);
     res.status(201).send({
       error: null,
-      results: results.hits,
+      results: products,
       pagination: {
         offset,
         limit,
-        total: results.nbHits,
+        total: products[0].total,
       },
     });
   } catch (error) {

@@ -1,5 +1,6 @@
-import { airtableBase } from "../lib/airtable";
-import { products } from "../lib/algolia";
+import { airtableBase } from '../lib/airtable';
+import { products } from '../lib/algolia';
+import { IProduct, IProductResponse } from '../interfaces/product';
 
 export const findProductById = async (id: string) => {
   const product = await products.getObject(id);
@@ -10,17 +11,28 @@ export const findProductsWithPagination = async (
   search: string,
   limit: number,
   offset: number
-) => {
+): Promise<IProduct[]> => {
   const results = await products.search(search, {
     length: limit,
     offset: offset,
   });
+  console.log(results);
 
-  return results;
+  const allProducts = results.hits.map((p: IProductResponse) => ({
+    description: p.Description,
+    name: p.Name,
+    type: p.Type,
+    images: p.Images[0].url,
+    price: p['Unit cost'],
+    objectID: p.objectID,
+    total: results.nbHits,
+  }));
+
+  return allProducts;
 };
 
 export const syncAlgoliaWithAirtable = async (limit, res) => {
-  airtableBase("Products")
+  airtableBase('Products')
     .select({
       pageSize: limit,
     })
@@ -42,7 +54,7 @@ export const syncAlgoliaWithAirtable = async (limit, res) => {
           return;
         }
         console.log("It's done");
-        res.status(200).send({ error: null, message: "Database updated" });
+        res.status(200).send({ error: null, message: 'Database updated' });
       }
     );
 };
