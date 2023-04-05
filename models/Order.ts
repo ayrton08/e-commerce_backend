@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { firestore } from '../lib/firestore';
 import { IOrder } from '../interfaces/order';
 import { randomCode } from '../helpers/setnewcode';
@@ -43,11 +42,9 @@ export default class Order {
     return orders;
   }
 
-  static async findById(id: string): Promise<FirebaseFirestore.DocumentData> {
+  static async findById(id: string): Promise<any> {
     const docRef = collection.doc(id);
     const doc = await docRef.get();
-
-    console.log({ doc });
 
     if (doc.exists) {
       return doc.data();

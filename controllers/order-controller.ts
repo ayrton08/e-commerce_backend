@@ -53,6 +53,22 @@ export const findOrders = async (
   }
 };
 
+export const getOrderById = async (
+  req: NextApiRequest,
+  res: NextApiResponse<Response>
+) => {
+  const { id } = req.query;
+
+  try {
+    const order = await Order.findById(id.toString());
+
+    return res.status(201).json({ error: null, order });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: { code: 400, message: error.message } });
+  }
+};
+
 // export const createOrder = async ({
 //   productId,
 //   token,
