@@ -1,56 +1,91 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { firestore } from "../lib/firestore";
+import { firestore } from '../lib/firestore';
+import { IOrder } from '../interfaces/order';
+import { randomCode } from '../helpers/setnewcode';
 
-const collection = firestore.collection("orders");
+const collection = firestore.collection('orders');
 
-export class Order {
+export default class Order {
   ref: FirebaseFirestore.DocumentReference;
-  data: any;
-  id: string;
+  order: IOrder;
 
-  constructor(id: string) {
-    this.id = id;
+  constructor(order: IOrder) {
+    const id = randomCode().toString();
     this.ref = collection.doc(id);
+    this.order = order;
+    this.order.id = id;
   }
-  async push() {
-    this.ref.update(this.data);
+  async save() {
+    this.ref.set(this.order);
   }
 
   async pull() {
     const snap = await this.ref.get();
-    this.data = snap.data();
+    return snap.data();
   }
 
-  async updateOrder(reference, linkToPay) {
-    this.data.aditionalInfo.external_reference = reference;
-    this.data.aditionalInfo.linkToPay = linkToPay;
-    await this.push();
+  async updateStatusPaid(status: boolean): Promise<void> {
+    this.order.isPaid = status;
+    await this.save();
   }
 
-  static async createNewOrder(newOrderData = {}) {
-    const newOrderSnap = await collection.add(newOrderData);
-    const newOrder = new Order(newOrderSnap.id);
-    newOrder.data = newOrderData;
-    return newOrder;
+  async setLinkToPay(link: string): Promise<void> {
+    this.order.linkToPay = link;
+    await this.save();
   }
 
-  static async getOrdersByUserId(userId: string) {
-    const results = await collection.get();
-    const orders = results.docs.map((data) => {
-      return data.data();
+  static async getOrdersByUser(user: string): Promise<IOrder[] | []> {
+    const results = await collection.where('user', '==', user).get();
+    const orders = [];
+    results.forEach((doc) => {
+      orders.push(doc.data());
     });
-
-    const myOrders = orders.filter((order) => order.userId === userId);
-
-    return myOrders;
+    return orders;
   }
 
-  static async getOrderById(orderId: string) {
-    const order = new Order(orderId);
-    await order.pull();
-    if (!order.data) {
-      throw new Error("Order not found");
+  static async findById(id: string): Promise<any> {
+    const docRef = collection.doc(id);
+    const doc = await docRef.get();
+
+    if (doc.exists) {
+      return doc.data();
+    } else {
+      return null;
     }
-    return order.data;
   }
+
+  // const orders = results.docs.map((data) => {
+  //   return data.data();
+  // });
+
+  // static async createNewOrder(newOrderData = {}) {
+  //   const newOrderSnap = await collection.add(newOrderData);
+  //   const newOrder = new Order(newOrderSnap.id);
+  //   newOrder.order = newOrderData;
+  //   return newOrder;
+  // }
+  // async updateOrder(reference, linkToPay) {
+  //   this.order.aditionalInfo.external_reference = reference;
+  //   this.order.aditionalInfo.linkToPay = linkToPay;
+  //   await this.push();
+  // }
+
+  // static async getOrdersByUserId(userId: string) {
+  //   const results = await collection.get();
+  //   const orders = results.docs.map((data) => {
+  //     return data.data();
+  //   });
+
+  //   const myOrders = orders.filter((order) => order.userId === userId);
+
+  //   return myOrders;
+  // }
+
+  // static async getOrderById(orderId: string) {
+  //   const order = new Order(orderId);
+  //   await order.pull();
+  //   if (!order.order) {
+  //     throw new Error('Order not found');
+  //   }
+  //   return order.order;
+  // }
 }
