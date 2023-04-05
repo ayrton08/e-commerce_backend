@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { IOrder } from 'interfaces';
 import { Order } from '../models';
 import { JwtPayload } from 'jsonwebtoken';
+import { getMerchantOrder } from 'lib/mercadopago';
+import { sendEmail } from 'lib/sendGrid';
 
 type Response =
   | {
@@ -110,33 +112,34 @@ export const getOrderById = async (
 //   return order;
 // };
 
-// export const updateStatusPayment = async (
-//   topic: string,
-//   id: string
-// ): Promise<void> => {
-//   if (topic === 'merchant_order') {
-//     const order = await getMerchantOrder(id);
-//     if (order.order_status === 'paid') {
-//       const orderId = order.external_reference;
+export const updateStatusPayment = async (
+  topic: string,
+  id: string
+): Promise<void> => {
+  if (topic === 'merchant_order') {
+    const order = await getMerchantOrder(id);
+    if (order.order_status === 'paid') {
+      const orderId = order.external_reference;
 
-//       const myOrder = await findOrderById(orderId);
+      // const myOrder = await findOrderById(orderId);
 
-//       const user = await findUserById(myOrder.data.userId);
+      // const user = await findUserById(myOrder.data.userId);
 
-//       myOrder.data.status = 'closed';
+      //   myOrder.data.status = 'closed';
 
-//       if (myOrder.data.status === 'closed' && order.order_status === 'paid') {
-//         try {
-//           sendEmail({
-//             addressee: user.data.email,
-//             message: 'The payment was successful',
-//             title: 'Payment status',
-//           });
-//         } catch (error) {
-//           console.error(error.message);
-//         }
-//       }
-//       await myOrder.push();
-//     }
-//   }
-// };
+      //   if (myOrder.data.status === 'closed' && order.order_status === 'paid') {
+      //     try {
+      //       sendEmail({
+      //         addressee: user.data.email,
+      //         message: 'The payment was successful',
+      //         title: 'Payment status',
+      //       });
+      //     } catch (error) {
+      //       console.error(error.message);
+      //     }
+      //   }
+      //   await myOrder.push();
+      // }
+    }
+  }
+};
