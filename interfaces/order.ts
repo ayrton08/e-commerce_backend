@@ -1,22 +1,21 @@
 export interface IOrder {
-  _id?: string;
-  user?: any;
+  id?: string;
+  user: string;
   orderItems: IOrderItem[];
   shippingAddress: IShippingAddress;
   paymentResult?: string;
-
   numberOfItems: number;
   subTotal: number;
   tax: number;
   total: number;
   isPaid: boolean;
   paidAt?: string;
+  linkToPay?: string;
 }
 
 export interface IOrderItem {
-  _id: string;
+  id: string;
   title: string;
-  // size: ISize;
   quantity: number;
   slug: string;
   images: string;

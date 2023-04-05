@@ -1,69 +1,57 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { NextApiRequest, NextApiResponse } from "next";
-import * as Yup from "yup";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import * as Yup from 'yup';
 
-import { authMiddleware, validationMiddleware } from "middlewares";
-import methods from "micro-method-router";
-import { createOrder } from "controllers/order-controller";
+import { authMiddleware, validationMiddleware } from 'middlewares';
+import methods from 'micro-method-router';
+import { createOrder, findOrders } from 'controllers/order-controller';
+import { JwtPayload } from 'jsonwebtoken';
 
-const schemaReq = Yup.object().shape({
-  productId: Yup.string().required(),
-});
-
-const schemaBody = Yup.object()
-  .shape({
-    items: Yup.array()
-      .of(
-        Yup.object({
-          title: Yup.string(),
-          description: Yup.string(),
-          picture_url: Yup.string(),
-          category_id: Yup.string(),
-          quantity: Yup.number(),
-          currency_id: Yup.string(),
-          unit_price: Yup.number(),
-        })
-      )
-      .required(),
-    back_urls: Yup.object({
-      success: Yup.string(),
-      failure: Yup.string(),
-    }).required(),
-    notification_url: Yup.string().required(),
-  })
-  .noUnknown()
-  .strict();
+// const schemaBody = Yup.object()
+//   .shape({
+//     items: Yup.array()
+//       .of(
+//         Yup.object({
+//           title: Yup.string(),
+//           description: Yup.string(),
+//           picture_url: Yup.string(),
+//           category_id: Yup.string(),
+//           quantity: Yup.number(),
+//           currency_id: Yup.string(),
+//           unit_price: Yup.number(),
+//         })
+//       )
+//       .required(),
+//     back_urls: Yup.object({
+//       success: Yup.string(),
+//       failure: Yup.string(),
+//     }).required(),
+//     notification_url: Yup.string().required(),
+//   })
+//   .noUnknown()
+//   .strict();
 
 async function post(
   req: NextApiRequest,
   res: NextApiResponse,
-  token: { userId: string }
+  user: JwtPayload
 ) {
-  const productId = req.query.productId as string;
+  return createOrder(req, res, user);
+}
 
-  try {
-    const aditionalInfo = req.body;
-
-    const { url, orderId } = await createOrder({
-      productId,
-      token,
-      aditionalInfo,
-    });
-
-    res.status(201).send({
-      error: null,
-      url,
-      orderId,
-    });
-  } catch (error) {
-    res.status(400).send({ error: { code: 400, message: error.message } });
-  }
+async function get(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  user: JwtPayload
+) {
+  return findOrders(req, res, user);
 }
 
 const postAuth = authMiddleware(post);
+const getAuth = authMiddleware(get);
 
 const handler = methods({
   post: postAuth,
+  get: getAuth,
 });
 
-export default validationMiddleware(handler, schemaReq, schemaBody);
+export default validationMiddleware(handler, null, null);

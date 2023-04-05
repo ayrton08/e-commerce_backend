@@ -1,4 +1,4 @@
-import mercadopago from "mercadopago";
+import mercadopago from 'mercadopago';
 
 mercadopago.configure({
   access_token: process.env.MERCADO_PAGO,
@@ -16,6 +16,7 @@ export async function getMerchantOrder(id) {
 export async function createPreference(data) {
   try {
     const res = await mercadopago.preferences.create(data);
+    console.log({ res });
     return res.body;
   } catch (error) {
     console.error(error.message);
